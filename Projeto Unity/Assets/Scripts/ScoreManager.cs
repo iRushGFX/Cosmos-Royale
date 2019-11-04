@@ -5,13 +5,15 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public float scoreCount;
+    public static float scoreCount;
+    public static float highScore;
     public int pointsPerSecond = 1;
     private TextMeshPro textObject;
 
     // Start is called before the first frame update
     void Start()
     {
+        highScore = PlayerPrefs.GetFloat("HighScore");
         textObject = GetComponent<TextMeshPro>();
         scoreCount = 0;
     }

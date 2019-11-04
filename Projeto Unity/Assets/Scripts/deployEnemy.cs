@@ -10,7 +10,7 @@ public class deployEnemy : MonoBehaviour
     public GameObject warningPrefab;
     public GameObject warningTextAsteroidPrefab;
     public GameObject warningTextCometPrefab;
- 
+
     private int asteroidWaves;
     private int cometWaves;
     private float respawnTime;
@@ -40,7 +40,6 @@ public class deployEnemy : MonoBehaviour
         asteroid.transform.position = new Vector3(Random.Range(-screenBounds.x, screenBounds.x), screenBounds.y * 2, 184);
 
         asteroidCounter = asteroidCounter + 1;
-        Debug.Log(asteroidCounter);
     }
 
     private void spawnComet()
@@ -51,9 +50,8 @@ public class deployEnemy : MonoBehaviour
         GameObject comet = Instantiate(cometPrefab) as GameObject;
         comet.transform.position = vector3;
         warning.transform.position = new Vector3(vector3.x, 520, 184);
-        
+
         cometCounter += 1;
-        Debug.Log(cometCounter);
     }
 
     private void spawnMeteor()
@@ -68,13 +66,13 @@ public class deployEnemy : MonoBehaviour
         while (true)
         {
 
-            respawnTime = Random.Range(0.5f, 3);
-            respawnProbability = Random.Range(1, 100);
+            respawnTime = Random.Range(0.5f, 2);
+            respawnProbability = Random.Range(1, 101);
             yield return new WaitForSeconds(respawnTime);
 
-            if (respawnProbability <= 70)
+            if (respawnProbability <= 65)
             {
-                if (asteroidCounter == 13) //Asteroid Rain
+                if (asteroidCounter == 10) //Asteroid Rain
                 {
                     GameObject warning = Instantiate(warningTextAsteroidPrefab) as GameObject;
                     yield return new WaitForSeconds(1.0f);
@@ -93,7 +91,7 @@ public class deployEnemy : MonoBehaviour
                     spawnAsteroid();
                 }
             }
-            else if (respawnProbability > 70 && respawnProbability < 95)
+            else if (respawnProbability > 65 && respawnProbability < 95)
             {
                 if (cometCounter == 6)//Comet Rain
                 {
@@ -101,7 +99,7 @@ public class deployEnemy : MonoBehaviour
                     GameObject warning = Instantiate(warningTextCometPrefab) as GameObject;
                     yield return new WaitForSeconds(1.0f);
 
-                    for (int i = 0; i <= 5; i++)
+                    for (int i = 0; i < cometWaves; i++)
                     {
                         yield return new WaitForSeconds(0.3f);
                         spawnComet();
@@ -114,19 +112,15 @@ public class deployEnemy : MonoBehaviour
                 {
                     spawnComet();
                 }
-               
+
             }
             else if (respawnProbability >= 95)
             {
+                yield return new WaitForSeconds(1);
                 spawnMeteor();
-                yield return new WaitForSeconds(3.0f);
+                yield return new WaitForSeconds(3.5f);
             }
 
-
-           
-           
-
-            
 
         }
     }
