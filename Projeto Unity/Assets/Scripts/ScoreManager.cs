@@ -22,6 +22,10 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         textObject.text = "Score: " + Mathf.Round(scoreCount);
-        scoreCount += pointsPerSecond * Time.deltaTime;
+        if (OnCollision.alive)
+        {
+            scoreCount += pointsPerSecond * Time.deltaTime;
+        }
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DitzeGames.Effects;
 
 public class getScore : MonoBehaviour
 {
@@ -11,8 +12,11 @@ public class getScore : MonoBehaviour
     public GameObject endGame;
     public GameObject scoreText;
     public GameObject highScoreText;
+    public GameObject joystickCanvas;
+
     private TextMeshProUGUI textScore;
     private TextMeshProUGUI textHighScore;
+    
 
     void Start()
     {
@@ -23,7 +27,7 @@ public class getScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OnCollision.alive == false)
+        if (!OnCollision.alive)
         {
             Pause();
         }
@@ -40,16 +44,18 @@ public class getScore : MonoBehaviour
 
     void Pause()
     {
+
+        
         verifyHighScore();
         textHighScore.text = ScoreManager.highScore.ToString();
         score = Mathf.Round(ScoreManager.scoreCount);
         textScore.text = score.ToString();
 
         endGame.SetActive(true);
-        Time.timeScale = 0f;
+        joystickCanvas.SetActive(false);
+
+
         GameIsPaused = true;
-
-
     }
 
     void verifyHighScore()

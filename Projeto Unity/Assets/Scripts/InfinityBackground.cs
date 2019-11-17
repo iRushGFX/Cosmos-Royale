@@ -5,7 +5,8 @@ using UnityEngine;
 public class InfinityBackground : MonoBehaviour
 {
     
-	public float scroll_Speed = 0.1f;
+	public float scroll_Speed;
+    public float scrollAfterCollision;
 
 	private MeshRenderer mesh_Renderer;
 
@@ -28,11 +29,12 @@ public class InfinityBackground : MonoBehaviour
 
 		mesh_Renderer.sharedMaterial.SetTextureOffset("_MainTex",offset);
 
-	}
+    }
 
 	void OnDisable()
 	{
 		mesh_Renderer.sharedMaterial.SetTextureOffset("_MainTex", saved_Offset);
 	}
+
 
 }
